@@ -1,14 +1,15 @@
 import { defineConfig, type HtmlTagDescriptor, type Plugin } from 'vite'
 import preact from '@preact/preset-vite'
 import tailwindcss from '@tailwindcss/vite'
+import fs from 'node:fs'
 import path from 'node:path'
-
-import siteConfiguration from './.figma/make/site.json'
 
 const isolationHeaders = {
   'Cross-Origin-Opener-Policy': 'same-origin',
   'Cross-Origin-Embedder-Policy': 'require-corp',
 }
+
+const siteConfiguration = loadSiteConfiguration()
 
 // Vite config — https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -51,6 +52,15 @@ export default defineConfig(({ mode }) => {
     },
   }
 })
+
+function loadSiteConfiguration(): FigmaSiteConfiguration {
+  const siteConfigurationPath = path.resolve(__dirname, './.figma/make/site.json')
+  if (!fs.existsSync(siteConfigurationPath)) {
+    return {}
+  }
+
+  return JSON.parse(fs.readFileSync(siteConfigurationPath, 'utf-8')) as FigmaSiteConfiguration
+}
 
 type FigmaSiteConfiguration = {
   title?: string
