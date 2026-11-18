@@ -47,3 +47,6 @@ test-results/
 # Local certificates and private keys
 *.pem
 *.key
+
+# Study assignments
+assignments/

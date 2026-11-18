@@ -44,8 +44,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          FIGMA_PUBLIC_URL: /Math
-
+          FIGMA_PUBLIC_URL: /Receipto
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
