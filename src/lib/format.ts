@@ -41,7 +41,10 @@ export function fmtDate(
 /** Compact human-readable duration for a day count. */
 export function humanLeft(days: number, u: Units): string {
   if (days < 0) return fill(u.ago, { n: Math.abs(days) })
-  if (days < 45) return fill(u.days, { n: days })
+  // Stay in days through the whole "soon" window (≤ 60 days, see statusOf) so
+  // the countdown always matches the filter it lands in; months would round
+  // e.g. 53 days to "2 months" and read like more time than it is.
+  if (days <= 60) return fill(u.days, { n: days })
   if (days < 365) return fill(u.months, { n: Math.round(days / 30.4) })
   const years = Math.floor(days / 365)
   const months = Math.round((days % 365) / 30.4)
