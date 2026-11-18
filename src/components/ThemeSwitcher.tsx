@@ -38,7 +38,7 @@ export default function ThemeSwitcher() {
       onClick={cycle}
       title={`${t("theme.label")}: ${t(`theme.${theme}`)}`}
       aria-label={`${t("theme.label")}: ${t(`theme.${theme}`)}`}
-      className={`-my-2 py-2 font-mono text-[8px] uppercase tracking-[0.18em] transition-colors sm:text-[9px] ${themeClass}`}
+      className={`tap -my-2 py-2 font-mono text-[8px] uppercase tracking-[0.18em] transition-colors sm:text-[10px] sm:tracking-[0.16em] ${themeClass}`}
     >
       {t(`theme.${theme}`)}
     </button>

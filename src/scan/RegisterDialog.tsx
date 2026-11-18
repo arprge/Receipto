@@ -231,7 +231,7 @@ export default function RegisterDialog({
             type="button"
             onClick={dismiss}
             disabled={saving}
-            className="shrink-0 font-mono text-xs text-muted hover:text-ink disabled:opacity-40"
+            className="tap shrink-0 font-mono text-xs text-muted hover:text-ink disabled:opacity-40"
           >
             ESC ✕
           </button>
@@ -281,7 +281,7 @@ export default function RegisterDialog({
                   <BitmapCanvas image={step.image} className="block h-auto w-full" />
                   <QuadLayer quads={step.quads} faint />
                 </div>
-                <div className="flex min-w-0 flex-1 items-center justify-between gap-3 font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
+                <div className="flex min-w-0 flex-1 items-center justify-between gap-3 font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.16em] sm:tracking-[0.14em] text-muted">
                   <span className="truncate">
                     {step.ms !== undefined
                       ? t("scan.readIn", { s: fmt.number(step.ms / 1000, 1) })
@@ -291,7 +291,7 @@ export default function RegisterDialog({
                     type="button"
                     onClick={retake}
                     disabled={saving}
-                    className="shrink-0 border-b border-ink pb-0.5 text-ink hover:text-signal hover:border-signal disabled:opacity-40"
+                    className="tap shrink-0 border-b border-ink pb-0.5 text-ink hover:text-signal hover:border-signal disabled:opacity-40"
                   >
                     {t("scan.retake")}
                   </button>
@@ -692,8 +692,7 @@ function CameraView({
       .catch(() => setTorch(null))
   }
 
-  const bar = "font-mono text-[10px] uppercase tracking-[0.18em] text-white/80 hover:text-white focus-visible:outline-white"
-
+  const bar = "tap font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.18em] sm:tracking-[0.16em] text-white/80 hover:text-white focus-visible:outline-white"
   return (
     <div className="relative aspect-[3/4] max-h-[70vh] w-full overflow-hidden bg-black max-sm:fixed max-sm:inset-0 max-sm:z-[60] max-sm:aspect-auto max-sm:max-h-none">
       <video ref={videoRef} playsInline muted autoPlay className="absolute inset-0 h-full w-full object-cover" />

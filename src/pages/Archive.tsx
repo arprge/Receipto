@@ -387,7 +387,7 @@ export default function ArchivePage({
             {query ? (
               <button
                 onClick={() => setQuery("")}
-                className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted hover:text-ink"
+                className="tap font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.15em] text-muted hover:text-ink"
               >
                 {t("archive.clear")}
               </button>
@@ -400,7 +400,7 @@ export default function ArchivePage({
           <div
             role="group"
             aria-label={t("archive.filterLabel")}
-            className="flex flex-wrap items-baseline gap-x-3 gap-y-2 px-4 font-mono text-[10px] uppercase tracking-[0.2em]"
+            className="flex flex-wrap items-baseline gap-x-3 gap-y-2 px-4 font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.2em] sm:tracking-[0.18em]"
           >
             {(["all", "filed", "missing"] as ArchiveFilter[]).map((f, i) => {
               const active = filter === f
@@ -411,7 +411,7 @@ export default function ArchivePage({
                     onClick={() => setFilter(f)}
                     disabled={!ready}
                     aria-pressed={active}
-                    className={`whitespace-nowrap border-b pb-0.5 transition-colors ${active
+                    className={`tap whitespace-nowrap border-b pb-0.5 transition-colors ${active
                       ? "border-ink text-ink"
                       : "border-transparent text-muted hover:text-ink"
                       }`}
@@ -654,7 +654,7 @@ function Preview({
         </span>
         <button
           onClick={onClose}
-          className="font-mono text-[10px] text-muted hover:text-ink"
+          className="tap font-mono text-[10px] sm:text-[11px] text-muted hover:text-ink"
         >
           ESC ✕
         </button>

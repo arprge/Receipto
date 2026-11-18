@@ -7,7 +7,7 @@ export default function LanguageSwitcher() {
     <div
       role="group"
       aria-label={t("lang.label")}
-      className="group/lang flex items-center gap-1.5 font-mono text-[8px] uppercase leading-none tracking-[0.18em] sm:text-[9px]"
+      className="group/lang flex items-center gap-1.5 font-mono text-[8px] uppercase leading-none tracking-[0.18em] sm:text-[10px] sm:tracking-[0.16em]"
     >
       {LANGS.map((l, i) => {
         const active = l.code === lang
@@ -24,10 +24,10 @@ export default function LanguageSwitcher() {
               aria-label={l.name}
               aria-pressed={active}
               onClick={() => setLang(l.code)}
-              className={`-my-2 py-2 transition-opacity focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink ${
+              className={`tap -my-2 py-2 transition-opacity focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink ${
                 active
                   ? "text-ink"
-                  : "text-muted opacity-40 hover:opacity-100 group-hover/lang:opacity-80 group-focus-within/lang:opacity-80"
+                  : "text-muted opacity-60 hover:opacity-100 group-hover/lang:opacity-90 group-focus-within/lang:opacity-90"
               }`}
             >
               {l.label}

@@ -90,7 +90,7 @@ export default function RegisterPage({
           right-anchored horizontal block. The view + Register group stays
           together, separated from the filters by only a tiny margin.
           Horizontal insets nudge everything toward center for two-handed reach. */}
-      <div className="mb-5 pl-[9px] pr-[22px] sm:px-0 flex flex-wrap items-center justify-end gap-[9px]">
+      <div className="mb-5 px-[15px] sm:px-0 flex flex-wrap items-center justify-end gap-[9px]">
         {/* Filter segmented control — one compact row, with labels and counts
             kept intact at every viewport. */}
         <div className="grid w-full grid-cols-4 gap-px bg-line p-px sm:inline-grid sm:w-auto">
@@ -108,7 +108,7 @@ export default function RegisterPage({
                     : "bg-receipt text-muted soft-key hover:text-ink"
                 }`}
               >
-                <span className="whitespace-nowrap text-[9px] tracking-[0.04em] sm:text-[10px] sm:tracking-[0.15em]">
+                <span className="whitespace-nowrap text-[9px] tracking-[0.04em] sm:text-[11px] sm:tracking-[0.14em]">
                   {t(`filter.${f}`)}
                 </span>
                 <span
@@ -129,7 +129,7 @@ export default function RegisterPage({
             <button
               onClick={() => setViewMode("list")}
               title={t("controls.listView")}
-              className={`font-mono text-[10px] uppercase tracking-[0.12em] px-3 py-1.5 transition-all ${
+              className={`font-mono text-[10px] uppercase tracking-[0.12em] px-3 py-1.5 transition-all sm:text-[11px] ${
                 viewMode === "list"
                   ? "bg-ink text-paper soft-pressed"
                   : "bg-receipt text-muted soft-key hover:text-ink"
@@ -140,7 +140,7 @@ export default function RegisterPage({
             <button
               onClick={() => setViewMode("receipts")}
               title={t("controls.receiptView")}
-              className={`font-mono text-[10px] uppercase tracking-[0.12em] px-3 py-1.5 border-l border-line transition-all ${
+              className={`font-mono text-[10px] uppercase tracking-[0.12em] px-3 py-1.5 border-l border-line transition-all sm:text-[11px] ${
                 viewMode === "receipts"
                   ? "bg-ink text-paper soft-pressed"
                   : "bg-receipt text-muted soft-key hover:text-ink"
@@ -155,7 +155,7 @@ export default function RegisterPage({
             onPointerEnter={onPrepare}
             onFocus={onPrepare}
             disabled={!ready}
-            className="font-mono text-[10px] uppercase tracking-[0.15em] px-3 py-1.5 bg-signal text-white hover:bg-ink hover:text-paper transition-colors whitespace-nowrap disabled:opacity-40 disabled:hover:bg-signal disabled:hover:text-white"
+            className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.15em] px-3 py-1.5 bg-signal text-white hover:bg-ink hover:text-paper transition-colors whitespace-nowrap disabled:opacity-40 disabled:hover:bg-signal disabled:hover:text-white"
           >
             + <span className="hidden sm:inline">{t("controls.register")}</span>
             <span className="sm:hidden">{t("controls.add")}</span>

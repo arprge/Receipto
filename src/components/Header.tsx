@@ -31,7 +31,7 @@ export default function Header({
             <h1 className="font-display text-[19px] font-extrabold leading-none tracking-tight sm:text-[22px]">
               WARRANTY KEEPER
             </h1>
-            <nav className="mt-1.5 flex items-center gap-2 font-mono text-[8px] uppercase leading-none tracking-[0.22em] sm:text-[9px]">
+            <nav className="mt-1.5 flex items-center gap-2 font-mono text-[8px] uppercase leading-none tracking-[0.22em] sm:text-[10px] sm:tracking-[0.2em]">
               {(["register", "archive"] as Page[]).map((p, i) => (
                 <span key={p} className="flex items-center gap-2">
                   {i > 0 && <span className="text-muted opacity-50">·</span>}
@@ -40,7 +40,7 @@ export default function Header({
                     onPointerEnter={p === "archive" ? onPrepareArchive : undefined}
                     onFocus={p === "archive" ? onPrepareArchive : undefined}
                     aria-current={page === p ? "page" : undefined}
-                    className={`border-b pb-0.5 transition-colors ${page === p
+                    className={`tap border-b pb-0.5 transition-colors ${page === p
                         ? "border-ink text-ink"
                         : "border-transparent text-muted hover:text-ink"
                       }`}

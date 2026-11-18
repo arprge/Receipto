@@ -29,7 +29,7 @@ export default function RegisterError({
         <div className="receipt-dash my-4" />
         <button
           onClick={onRetry}
-          className="font-mono text-[10px] uppercase tracking-[0.15em] px-4 py-1.5 border border-ink text-ink hover:bg-ink hover:text-paper transition-colors"
+          className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.15em] px-4 py-1.5 border border-ink text-ink hover:bg-ink hover:text-paper transition-colors"
         >
           {t("states.tryAgain")}
         </button>
