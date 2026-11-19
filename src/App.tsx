@@ -6,8 +6,8 @@ import {
   countByStatus,
   coveredValue,
 } from "./domain/warranty"
-import { type ItemDraft, loadItems, saveItem } from "./domain/repo"
-import Header, { type Page } from "./components/Header"
+import { type ItemDraft, deleteItem, loadItems, saveItem } from "./domain/repo"
+import Header, { type Meta, type Page } from "./components/Header"
 import Footer from "./components/Footer"
 import RegisterPage, { type Filter, type ViewMode } from "./pages/Register"
 import { warmReader } from "./scan/ocr"
@@ -40,6 +40,7 @@ export default function App() {
   const [page, setPage] = useState<Page>("register")
   // The most recently filed record: drives the print-in and header line.
   const [printed, setPrinted] = useState<WarrantyItem | null>(null)
+  const [activity, setActivity] = useState<Meta | null>(null)
 
   const fetchItems = useCallback(() => {
     let cancelled = false
@@ -67,6 +68,12 @@ export default function App() {
     return () => clearTimeout(t)
   }, [printed])
 
+  useEffect(() => {
+    if (!activity) return
+    const t = setTimeout(() => setActivity(null), 3200)
+    return () => clearTimeout(t)
+  }, [activity])
+
   // Pull the reader down while the browser is idle, so the first scan starts
   // on an already-compiled engine. Skipped on metered/slow connections.
   useEffect(() => {
@@ -88,7 +95,34 @@ export default function App() {
     const saved = await saveItem(draft)
     setItems((s) => [...s, saved])
     setPrinted(saved)
+    setActivity(null)
   }
+
+  const removeItem = useCallback(
+    async (id: string) => {
+      try {
+        await deleteItem(id)
+        setItems((s) => {
+          const next = s.filter((it) => it.id !== id)
+          setActivity({
+            key: `removed-${id}`,
+            text: t("meta.removed", { count: next.length }),
+            tone: "opacity-75",
+          })
+          return next
+        })
+        setPrinted((p) => (p?.id === id ? null : p))
+      } catch (err) {
+        setActivity({
+          key: `remove-err-${id}-${Date.now()}`,
+          text: t("meta.removeFailed"),
+          tone: "text-signal",
+        })
+        throw err
+      }
+    },
+    [t],
+  )
 
   const ready = load.status === "ready"
 
@@ -114,9 +148,11 @@ export default function App() {
       ? { key: "loading", text: t("meta.loading"), tone: "opacity-55 skeleton-pulse" }
       : load.status === "error"
         ? { key: "error", text: t("meta.error"), tone: "text-signal" }
-        : printed
-          ? { key: `printed-${printed.id}`, text: t("meta.filed", { count: items.length }), tone: "text-ok" }
-          : { key: "ready", text: t("meta.onFile", { count: items.length }), tone: "opacity-55" }
+        : activity
+          ? activity
+          : printed
+            ? { key: `printed-${printed.id}`, text: t("meta.filed", { count: items.length }), tone: "text-ok" }
+            : { key: "ready", text: t("meta.onFile", { count: items.length }), tone: "opacity-55" }
 
   return (
     <div className="min-h-full font-body text-ink">
@@ -131,7 +167,12 @@ export default function App() {
 
       {page === "archive" && (
         <Suspense fallback={null}>
-          <ArchivePage enriched={enriched} load={load} onRetry={fetchItems} />
+          <ArchivePage
+            enriched={enriched}
+            load={load}
+            onRetry={fetchItems}
+            onRemove={removeItem}
+          />
         </Suspense>
       )}
 
@@ -151,6 +192,7 @@ export default function App() {
           viewMode={viewMode}
           setViewMode={setViewMode}
           onRegister={() => setAdding(true)}
+          onRemove={removeItem}
           onPrepare={prepareRegister}
           onRetry={fetchItems}
         />

@@ -19,12 +19,12 @@ export default function MoneyStat({
   const highRisk = stats.clusterP >= 0.5
 
   return (
-    <div className="relative border-r border-b border-line">
+    <div className="relative bg-receipt">
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
-        className="group w-full px-5 py-6 text-left transition-colors hover:bg-lift"
+        className="group h-full w-full px-5 py-6 text-left transition-colors hover:bg-lift"
       >
         <div className="flex items-center gap-1.5">
           <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
@@ -37,7 +37,7 @@ export default function MoneyStat({
             &gt;
           </span>
         </div>
-        <div className="mt-3 font-display text-3xl font-extrabold leading-none tracking-tight text-signal">
+        <div className="mt-3 font-display text-3xl font-extrabold leading-none tracking-tight text-ink">
           {value}
         </div>
       </button>
@@ -63,8 +63,8 @@ export default function MoneyStat({
             {/* caret */}
             <div className="absolute -top-[5px] right-6 h-2.5 w-2.5 rotate-45 border-l border-t border-ink bg-paper" />
 
-            {/* signal header rule */}
-            <div className="h-[3px] w-full bg-signal" />
+            {/* header rule — crimson only when cash-gap risk is elevated */}
+            <div className={`h-[3px] w-full ${highRisk ? "bg-signal" : "bg-ink"}`} />
 
             <div className="px-4 pb-4 pt-3">
               <div className="mb-3 flex items-baseline justify-between">

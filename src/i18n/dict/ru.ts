@@ -12,6 +12,8 @@ export default {
     loading: "Читаем файл…",
     error: "Файл не прочитан",
     filed: "Записано · {count} в реестре",
+    removed: "Удалено · {count} в реестре",
+    removeFailed: "Не удалось удалить запись",
     onFile: {
       one: "{count} запись в реестре",
       few: "{count} записи в реестре",
@@ -64,6 +66,10 @@ export default {
     value: "Стоимость",
     onFile: "✓ Чек в архиве",
     none: "✗ Нет чека",
+    remove: "Удалить",
+    removeAria: "Удалить {product}",
+    confirmRemove: "Удалить?",
+    removing: "Удаление…",
   },
   status: { expired: "Истекла" },
   risk: {

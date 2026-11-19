@@ -16,6 +16,8 @@ const en = {
     loading: "Reading file…",
     error: "File not read",
     filed: "Filed · {count} on record",
+    removed: "Removed · {count} on record",
+    removeFailed: "Could not remove record",
     onFile: plural({ one: "{count} record on file", other: "{count} records on file" }),
   },
   stats: {
@@ -63,6 +65,10 @@ const en = {
     value: "Value",
     onFile: "✓ Receipt on file",
     none: "✗ No receipt",
+    remove: "Remove",
+    removeAria: "Remove {product}",
+    confirmRemove: "Delete",
+    removing: "Removing…",
   },
   status: { expired: "Expired" },
   risk: {

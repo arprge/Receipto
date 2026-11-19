@@ -10,32 +10,32 @@
   --font-body: 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  /* Just-warm paper: a near-white earth tint, perceptible only beside pure white. */
-  --color-paper: #fbfaf7;
-  --color-ink: #25262a; /* near-neutral dark, softer than pure black */
-  --color-line: #e9e5dc;
-  /* Bright, lively foregrounds — light and vivid, still readable on white. */
-  --color-muted: #73757c;
-  --color-signal: #db4433; /* bright rust red */
-  --color-warn: #d97706; /* clear, vivid orange-amber for expiring cover */
-  --color-ok: #2f9464; /* fresh, bright green */
-  --color-receipt: #fffefa;
+  /* Bright daylight off-white canvas: airy and crisp, cleanly framing white slips. */
+  --color-paper: #f7f8fa;
+  --color-ink: #1b1e24;
+  --color-line: #e4e7ec;
+  /* Lively, clear foregrounds — crisp on white without gloom or cream warmth. */
+  --color-muted: #666e7a;
+  --color-signal: #d93428; /* crisp Swiss vermilion */
+  --color-warn: #cf6e06; /* bright, clear amber */
+  --color-ok: #1b8555; /* fresh, lively emerald */
+  --color-receipt: #ffffff;
 
-  /* A whisper of ochre structure gives the white field a dry, tactile warmth. */
-  --grid-line: rgba(125, 101, 53, 0.028);
+  /* Light cool-neutral drafting grid lines. */
+  --grid-line: rgba(27, 30, 36, 0.022);
   --grid-size: 26px;
 
   /* Physical-layer tokens: lit edges, contact shadows and hover lifts.
      Overridden in dark so the paper metaphor survives the inversion. */
-  --color-lift: #ffffff;
-  --color-scrim: rgba(37, 38, 42, 0.4);
-  --edge-lit: rgba(255, 255, 255, 0.96);
-  --edge-soft: rgba(255, 255, 255, 0.9);
-  --hairline: rgba(122, 101, 58, 0.055);
-  --contact: rgba(27, 42, 56, 0.1);
-  --contact-soft: rgba(92, 74, 40, 0.045);
-  --glow: rgba(255, 253, 245, 0.78);
-  --drop: rgba(27, 42, 56, 0.08);
+  --color-lift: #f1f3f6;
+  --color-scrim: rgba(27, 30, 36, 0.36);
+  --edge-lit: rgba(255, 255, 255, 0.98);
+  --edge-soft: rgba(255, 255, 255, 0.92);
+  --hairline: rgba(27, 30, 36, 0.065);
+  --contact: rgba(27, 30, 36, 0.08);
+  --contact-soft: rgba(27, 30, 36, 0.035);
+  --glow: rgba(255, 255, 255, 0.85);
+  --drop: rgba(27, 30, 36, 0.07);
 }
 
 /* Dark tokens are stamped on <html> by the theme switcher (AUTO resolves to
@@ -378,8 +378,8 @@ body {
 
 /* Stronger hairlines and secondary text when the OS asks for more contrast. */
 @media (prefers-contrast: more) {
-  :root {
-    --color-muted: #5d5f66;
-    --color-line: #cfc9bc;
+  :root:not([data-theme="dark"]) {
+    --color-muted: #4b525c;
+    --color-line: #c7ccd6;
   }
 }

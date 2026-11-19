@@ -12,6 +12,8 @@ export default {
     loading: "Файл оқылуда…",
     error: "Файл оқылмады",
     filed: "Тіркелді · тізілімде {count}",
+    removed: "Жойылды · тізілімде {count}",
+    removeFailed: "Жазбаны жою мүмкін болмады",
     onFile: { one: "Тізілімде {count} жазба", other: "Тізілімде {count} жазба" },
   },
   stats: {
@@ -59,6 +61,10 @@ export default {
     value: "Құны",
     onFile: "✓ Түбіртек сақтаулы",
     none: "✗ Түбіртек жоқ",
+    remove: "Жою",
+    removeAria: "{product} жою",
+    confirmRemove: "Жою?",
+    removing: "Жойылуда…",
   },
   status: { expired: "Аяқталды" },
   risk: {

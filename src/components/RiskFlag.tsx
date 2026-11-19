@@ -9,7 +9,7 @@ export default function RiskFlag({ risk }: { risk: WarrantyRisk }) {
       ? "bg-signal text-white"
       : risk.level === "watch"
         ? "bg-warn text-ink"
-        : "bg-ok text-white"
+        : "bg-muted/70 text-white"
 
   return (
     <div className="mb-3 border-t border-line pt-3">

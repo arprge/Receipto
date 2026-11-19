@@ -11,6 +11,7 @@ import { type EnrichedItem, groupByMonth } from "../domain/warranty"
 import { useI18n } from "../i18n"
 import type { LoadState } from "../App"
 import StatusDot from "../components/StatusDot"
+import RemoveControl from "../components/RemoveControl"
 
 type ArchiveFilter = "all" | "filed" | "missing"
 
@@ -229,10 +230,12 @@ export default function ArchivePage({
   enriched,
   load,
   onRetry,
+  onRemove,
 }: {
   enriched: EnrichedItem[]
   load: LoadState
   onRetry: () => void
+  onRemove: (id: string) => Promise<void>
 }) {
   const { t, fmt } = useI18n()
   const ready = load.status === "ready"
@@ -619,7 +622,14 @@ export default function ArchivePage({
                 aria-label={t("archive.preview")}
                 className="archive-slip fixed inset-x-0 bottom-0 z-50 max-h-[80vh] overflow-auto bg-receipt md:sticky md:top-6 md:inset-auto md:z-auto md:w-72 md:shrink-0 md:max-h-none"
               >
-                <Preview entry={selected} onClose={() => setSelectedId(null)} />
+                <Preview
+                  entry={selected}
+                  onClose={() => setSelectedId(null)}
+                  onRemove={async () => {
+                    await onRemove(selected.it.id)
+                    setSelectedId(null)
+                  }}
+                />
               </aside>
             </>
           )}
@@ -632,9 +642,11 @@ export default function ArchivePage({
 function Preview({
   entry,
   onClose,
+  onRemove,
 }: {
   entry: EnrichedItem
   onClose: () => void
+  onRemove: () => Promise<void>
 }) {
   const { t, fmt } = useI18n()
   const { it, status, days, expiry } = entry
@@ -678,13 +690,16 @@ function Preview({
         ))}
       </dl>
       <div className="receipt-dash my-3" />
-      <div
-        className={`font-mono text-[10px] uppercase tracking-[0.15em] ${it.receipt ? "text-ok" : "text-signal"
-          }`}
-      >
-        {it.receipt
-          ? t("archive.proof")
-          : t("archive.noReceipt")}
+      <div className="flex items-center justify-between gap-3">
+        <div
+          className={`font-mono text-[10px] uppercase tracking-[0.15em] ${it.receipt ? "text-ok" : "text-signal"
+            }`}
+        >
+          {it.receipt
+            ? t("archive.proof")
+            : t("archive.noReceipt")}
+        </div>
+        <RemoveControl product={it.product} onRemove={onRemove} />
       </div>
     </div>
   )

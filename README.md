@@ -48,8 +48,8 @@ your records stay on your device, and receipt scanning works offline.
 **Requirements:** Node.js 20.19+ or 22.12+ and npm.
 
 ```bash
-git clone https://github.com/arprge/Math.git
-cd Math
+git clone https://github.com/arprge/Receipto.git
+cd Receipto
 npm install
 npm run fetch-models
 npm run dev

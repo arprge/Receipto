@@ -65,3 +65,16 @@ export async function saveItem(draft: ItemDraft): Promise<WarrantyItem> {
   }
   return item
 }
+
+export async function deleteItem(id: string): Promise<void> {
+  await wait(SAVE_MS)
+  if (failMode() === "save") {
+    throw new RepoError("SAVE_FAILED", "The record could not be removed.")
+  }
+  try {
+    const next = read().filter((item) => item.id !== id)
+    localStorage.setItem(KEY, JSON.stringify(next))
+  } catch {
+    throw new RepoError("SAVE_FAILED", "Storage is unavailable.")
+  }
+}

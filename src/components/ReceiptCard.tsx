@@ -6,6 +6,7 @@ import type { WarrantyRisk } from "../stats"
 import { barcodesFrom } from "../lib/barcode"
 import StatusDot from "./StatusDot"
 import RiskFlag from "./RiskFlag"
+import RemoveControl from "./RemoveControl"
 
 /** One record rendered as a thermal till receipt. */
 function ReceiptCard({
@@ -15,6 +16,7 @@ function ReceiptCard({
   expiry,
   risk,
   fresh = false,
+  onRemove,
 }: {
   it: WarrantyItem
   days: number
@@ -22,6 +24,7 @@ function ReceiptCard({
   expiry: Date
   risk?: WarrantyRisk
   fresh?: boolean
+  onRemove?: (id: string) => Promise<void>
 }) {
   const { t, fmt } = useI18n()
   const totalDays = it.warrantyMonths * 30.4
@@ -47,8 +50,15 @@ function ReceiptCard({
       {/* Receipt body */}
       <div className="flex flex-1 flex-col px-5 pt-4 pb-4">
         {/* Letterhead row */}
-        <div className="flex items-center justify-between mb-1">
+        <div className="flex items-center justify-between gap-2 mb-1">
           <StatusDot status={status} />
+          {onRemove && (
+            <RemoveControl
+              product={it.product}
+              onRemove={() => onRemove(it.id)}
+              reveal
+            />
+          )}
         </div>
         <div className="font-mono text-[10px] text-muted mb-3 truncate">
           {it.store}

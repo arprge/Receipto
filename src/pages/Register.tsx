@@ -11,6 +11,7 @@ import MoneyStat from "../components/MoneyStat"
 import StatusDot from "../components/StatusDot"
 import ProgressLeft from "../components/ProgressLeft"
 import ReceiptCard from "../components/ReceiptCard"
+import RemoveControl from "../components/RemoveControl"
 import RegisterSkeleton from "../components/RegisterSkeleton"
 import RegisterError from "../components/RegisterError"
 
@@ -33,6 +34,7 @@ export default function RegisterPage({
   viewMode,
   setViewMode,
   onRegister,
+  onRemove,
   onPrepare,
   onRetry,
 }: {
@@ -50,6 +52,7 @@ export default function RegisterPage({
   viewMode: ViewMode
   setViewMode: (v: ViewMode) => void
   onRegister: () => void
+  onRemove: (id: string) => Promise<void>
   onPrepare: () => void
   onRetry: () => void
 }) {
@@ -58,7 +61,7 @@ export default function RegisterPage({
   return (
     <main id="main" tabIndex={-1} className="mx-auto max-w-6xl px-6 pt-8 pb-6 sm:pt-6 focus:outline-none">
       {/* Stat band — tighter padding */}
-      <section className="grid grid-cols-2 lg:grid-cols-4 border border-line mb-8 bg-receipt soft-raised">
+      <section className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line mb-8 soft-raised">
         <Stat
           label={t("stats.total")}
           value={String(items.length)}
@@ -82,7 +85,7 @@ export default function RegisterPage({
             stats={priceStats}
           />
         ) : (
-          <Stat label={t("stats.value")} value="" accent="signal" pending />
+          <Stat label={t("stats.value")} value="" pending />
         )}
       </section>
 
@@ -187,11 +190,18 @@ export default function RegisterPage({
                 }`}
               >
                 <div className="min-w-0">
-                  <div className="flex items-center gap-2">
-                    <StatusDot status={status} />
-                    <span className="font-display font-bold text-base leading-tight truncate">
-                      {it.product}
-                    </span>
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex min-w-0 items-center gap-2">
+                      <StatusDot status={status} />
+                      <span className="font-display font-bold text-base leading-tight truncate">
+                        {it.product}
+                      </span>
+                    </div>
+                    <RemoveControl
+                      product={it.product}
+                      onRemove={() => onRemove(it.id)}
+                      reveal
+                    />
                   </div>
                   <div className="font-mono text-[10px] text-muted mt-0.5 truncate">
                     {it.brand} · {fmt.category(it.category)} · {it.serial}
@@ -232,6 +242,7 @@ export default function RegisterPage({
               expiry={expiry}
               risk={riskByItemId.get(it.id)}
               fresh={printed?.id === it.id}
+              onRemove={onRemove}
             />
           ))}
           {visible.length === 0 && (

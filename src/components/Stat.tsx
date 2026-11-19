@@ -13,22 +13,21 @@ export default function Stat({
   pending?: boolean
 }) {
   const { t } = useI18n()
-  const color =
+  const pip =
     accent === "ok"
-      ? "text-ok"
+      ? "bg-ok"
       : accent === "warn"
-        ? "text-warn"
+        ? "bg-warn"
         : accent === "signal"
-          ? "text-signal"
-          : "text-ink"
+          ? "bg-signal"
+          : null
   return (
-    <div className="border-r border-b border-line px-5 py-6">
-      <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
-        {label}
+    <div className="bg-receipt px-5 py-6">
+      <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+        {pip && <span className={`h-1.5 w-1.5 shrink-0 ${pip}`} aria-hidden />}
+        <span>{label}</span>
       </div>
-      <div
-        className={`font-display font-extrabold text-3xl leading-none mt-3 tracking-tight ${color}`}
-      >
+      <div className="font-display font-extrabold text-3xl leading-none mt-3 tracking-tight text-ink">
         {pending ? (
           <span
             aria-label={t("stats.loading")}
